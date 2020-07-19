@@ -4,7 +4,6 @@
 
 - [General info](#general-info)
 - [Technologies](#Technologies)
-- [Code Overview](#Code-Overview)
 - [Summary](#Summary)
 - [Author](#Author)
 - [License](#License)
@@ -27,10 +26,6 @@ Project is created with:
 - [jQuery](https://jquery.com/)
 - [Bootstrap](https://getbootstrap.com/)
 - [Moment.js](https://momentjs.com/)
-
-## Code Overview
-
-- MERN stack
 
 ## Summary
 
