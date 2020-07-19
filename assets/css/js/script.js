@@ -1,65 +1,56 @@
-$(function() {
-    let d = new Date()
+//----define moment varibles used to show time----//
+var date = moment().format('MMMM Do YYYY, h:mm a');
 
-    let year = d.getFullYear()
-    let month = d.getMonth()+1;
-    let day = d.getDate()
+//-------append date----------//
+$("#currentDay").append(date);
 
-    let totalDays = new Date(year, month, 0).getDate()
+var timeOfday = ["9", "10", "11", "12", "13", "14", "15", "16", "17"]
+updatetime();
 
-    let output =
-    (month<10 ? '0' : '') + month + '/' +
-    (day<10 ? '0' : '') + day + '/' + year
+function updatetime() {
+  var currentTime = moment().format('H');
+  for(var i = 0; i < timeOfday.length; i++) {
 
-    $('.date').text(`${output}`)
+    if (parseInt(timeOfday[i]) > currentTime) {
+      $("#" + timeOfday[i]).attr("style", "background-color: white");
 
-    $( ".planes" ).click(function(e) {
 
-        let row = 0, length = 1, column = 0
-        let timeObj = {
-            "5 AM" : 1,
-            "6 AM" : 2,
-            "7 AM" : 3,
-            "8 AM" : 4,
-            "9 AM" : 5,
-            "10 AM" : 6,
-            "11 AM" : 7,
-            "12 PM" : 8,
-            "1 PM" : 9,
-            "2 PM" : 10,
-            "3 PM" : 11,
-            "4 PM" : 12,
-            "5 PM" : 13,
-            "6 PM" : 14,
-            "7 PM" : 15,
-            "8 PM" : 16,
-            "9 PM" : 17,
-            "10 PM" : 18,
-            "11 PM" : 19,
-            "12 AM" : 20,
-            "1 AM" : 21,
-            "2 AM" : 22,
-            "3 AM" : 23,
-            "4 AM" : 24
-        }
+    }
+    else if (parseInt(timeOfday[i]) < currentTime) {
+      $("#" + timeOfday[i]).attr("style", "background-color: #C0C0C0");
 
-        column = e.target.className.match(/\d+/)[0]
+    }
+    else if (parseInt(timeOfday[i]) == currentTime) {
+      $("#" + timeOfday[i]).attr("style", "background-color:#52BE80");
+    
+    }
+  }
+}
 
-        $('.modal-container').toggle()
+//--onclick event to save user input to local storage---//
+$(".rowBtn").on("click", function() {
+    var timeOfday = $(this).parent().attr("id");
+    var textContent = $("input").val().trim();
 
-        $('.modal-container--close').click(function(){
-            $('.modal-container').css('display', 'none')
-        })
-        
-        $('.modal-container--form').submit(function(e){
-            e.preventDefault()
-           
-            row = timeObj[$( "#start-select" ).val()]
-            length = (timeObj[$( "#end-select" ).val()]) - (timeObj[$( "#start-select" ).val()])
-            $('.content').append(`<div class='event' style='grid-row:${row}/span ${length};grid-column:${column};background-color: yellow;'>Reservation</div>`)
-            $('.modal-container--form')[0].reset()
-            $('.modal-container--form').off()
-            $('.modal-container').toggle()
-        })
-      });
-  });
+    localStorage.setItem(timeOfday, textContent);
+    console.log(timeOfday, textContent);
+});
+
+//-------Getting individual childern and setting to parent-----//
+  $("#9am").children("input").val(localStorage.getItem("9am"));
+
+  $("#10am").children("input").val(localStorage.getItem("10am"));
+
+  $("#11am").children("input").val(localStorage.getItem("11am"));
+
+  $("#12pm").children("input").val(localStorage.getItem("12pm"));
+
+  $("#1pm").children("input").val(localStorage.getItem("1pm"));
+
+  $("#2pm").children("input").val(localStorage.getItem("2pm"));
+
+  $("#3pm").children("input").val(localStorage.getItem("3pm"));
+
+  $("#4pm").children("input").val(localStorage.getItem("4pm"));
+
+  $("#5pm").children("input").val(localStorage.getItem("5pm"));
